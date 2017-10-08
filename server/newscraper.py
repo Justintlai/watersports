@@ -141,7 +141,7 @@ def getKey(item):
     return item["time"]
 
 
-def get_articles(topic, start, end, skipNum):
+def get_articles(topic, skipNum):
     r = search_news(str(topic), 10, skipNum)
     return sorted(r["results"], key=getKey, reverse=True)
 
@@ -167,7 +167,7 @@ def get_article_testing():
 if __name__ == "__main__":
     start = "1232131"
     end = "1232131"
-    r = get_articles("slack", start, end, 0)
+    r = get_articles("slack", 0)
     for i in r:
         print(i["time"])
     pass

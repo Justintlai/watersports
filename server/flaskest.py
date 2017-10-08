@@ -11,16 +11,12 @@ flask_cors.CORS(app)
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
-    start = request.form['dateFROM']
-    print(start)
-    end = request.form['dateTO']
-    print(end)
     topic = request.form['topic']
     print(topic)
     skipNum = request.form['skipNum']
     print(skipNum)
 
-    data = get_articles(topic, start, end, skipNum)
+    data = get_articles(topic, skipNum)
     response = app.response_class(
         response=json.dumps(data),
         status=200,
