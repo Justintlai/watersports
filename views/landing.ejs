@@ -26,13 +26,11 @@
     <section class="main-content padding-80">
       <div class="container">
         <form class="form" action="" method="post" role="form">
-            <input class="col-xs-6" type="date" name="dateFROM" class="form-control" placeholder="DATE FROM" required autofocus>
-            <input class="col-xs-6" type="date" name="dateTO" class="form-control" placeholder="DATE TO" required>
             <div class=" col-xs-12 input-wrapper">
               <input class="promo__input" type="text" name="topic" value="TRUMP" placeholder="Search for a topic">
               <i class="icon-search fa fa-search" aria-hidden="true"></i>
             </div>
-            <input type="text" name="skipNum" value="10">
+            <input type="hidden" name="skipNum" value="10">
             <button class="btn btn-lg btn-primary btn-block" type="button">Submit</button>
         </form>
       </div>
@@ -40,7 +38,7 @@
 
     <section class="news-results padding-80">
       <div class="container">
-        <div class="result">
+        <div id="result">
 
         </div>
 
@@ -49,31 +47,6 @@
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/js/bootstrap.min.js" integrity="sha384-vZ2WRJMwsjRMW/8U7i6PWi6AlO1L79snBrmgiDpgIWJ82z8eA5lenwvxbMV1PAh7" crossorigin="anonymous"></script>
-
-    <script>
-    $('button').click(function() {
-  var dateTO = $('#dateFROM').val();
-  var dateFROM = $('#dateTO').val();
-  var topic = $('#topic').val();
-  var skipNum = $('#skipNum').val();
-
-  $.ajax({
-    url: 'http://192.168.1.67:5000',
-    data: $('form').serialize(),
-    type: 'POST',
-    success: function(result) {
-      console.log(result);
-      var html = func(result);
-      $('.result').html(html);
-    },
-    error: function(error) {
-      console.log(error);
-    }
-  });
-});
-</script>
-
-
-
+    <script src="/scripts/main.js"></script>
   </body>
 </html>
