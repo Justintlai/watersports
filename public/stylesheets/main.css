@@ -91,11 +91,14 @@ input[type='date'] {
 
 .news-results {
   width: 100%;
-  background-color: #2ecc71;
+  background-color: #fff;
   color: #333;
   position: relative;
   text-align: center;
 }
-#ajax-panel {
+#ajax-panel img {
   width: 150px;
+}
+.ajax-panel {
+  margin: auto;
 }
