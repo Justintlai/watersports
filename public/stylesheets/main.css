@@ -96,3 +96,6 @@ input[type='date'] {
   position: relative;
   text-align: center;
 }
+#ajax-panel {
+  width: 150px;
+}

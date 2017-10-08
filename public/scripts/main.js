@@ -8,9 +8,17 @@ $(document).ready(function() {
     $.ajax({
       url: 'http://192.168.1.67:5000',
       data: $('form').serialize(),
+      beforeSend: function() {
+        // this is where we append a loading image
+        $('#ajax-panel').html(
+          '<div class="loading"><img src="/img/loading.gif" alt="Loading..." /></div>'
+        );
+      },
       type: 'POST',
+      timeout: 2000,
       success: function(result) {
         console.log(result);
+        $('#ajax-panel').empty();
         for (var i = 0; i < result.length; i++) {
           $('#result').append(result[i].link_text + '</br>');
           $('#result').append(
@@ -23,6 +31,10 @@ $(document).ready(function() {
       },
       error: function(error) {
         console.log(error);
+        // failed request; give feedback to user
+        $('#ajax-panel').html(
+          '<p class="error"><strong>Oops!</strong> Try that again in a few moments.</p>'
+        );
       }
     });
   }
