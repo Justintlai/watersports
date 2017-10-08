@@ -40,7 +40,7 @@
 
     <section class="news-results padding-80">
       <div class="container">
-        <div class="result">
+        <div class="result" id="result">
 
         </div>
 
@@ -63,8 +63,14 @@
     type: 'POST',
     success: function(result) {
       console.log(result);
-      var html = func(result);
-      $('.result').html(html);
+      // $('.result').html(html);
+      for (var i =0; i< result.length; i++){
+        $("#result").append(result[i].link_text + "</br>");
+        $("#result").append("<a href=" + result[i].link + ">Source<\a>" + "</br>");
+        $("#result").append(new Date(result[i].time * 1000 ) + "</br>");
+        $("#result").append(result[i].source + "</br>");
+        $("#result").append("</br></br>");
+      }
     },
     error: function(error) {
       console.log(error);

@@ -119,7 +119,7 @@ def scrape_news_result(soup):
     return results
 
 
-def search_news(query, num=10, start=0, sleep=True, recent=None, country_code=None):
+def search_news(query, num=10, start=0, recent=None, country_code=None):
     url = generate_news_url(query, str(num), str(start), country_code, recent)
     soup = BeautifulSoup(requests.get(url).text, "html.parser")
     results = scrape_news_result(soup)
@@ -142,7 +142,7 @@ def getKey(item):
 
 
 def get_articles(topic, start, end, skipNum):
-    r = search_news(str(topic), 10, skipNum, False)
+    r = search_news(str(topic), 10, skipNum)
     return sorted(r["results"], key=getKey, reverse=True)
 
 
