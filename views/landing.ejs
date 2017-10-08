@@ -26,14 +26,13 @@
     <section class="main-content padding-80">
       <div class="container">
         <form class="form" action="" method="post" role="form">
-            <input class="col-xs-6" type="date" name="dateFROM" class="form-control" placeholder="DATE FROM" required autofocus>
-            <input class="col-xs-6" type="date" name="dateTO" class="form-control" placeholder="DATE TO" required>
             <div class=" col-xs-12 input-wrapper">
               <input class="promo__input" type="text" name="topic" value="TRUMP" placeholder="Search for a topic">
               <i class="icon-search fa fa-search" aria-hidden="true"></i>
             </div>
-            <input type="text" name="skipNum" value="10">
+            <input type="hidden" name="skipNum" value="10">
             <button class="btn btn-lg btn-primary btn-block" type="button">Submit</button>
+            <div id="ajax-panel"></div>
         </form>
       </div>
     </section>
