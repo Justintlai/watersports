@@ -16,6 +16,11 @@ app.get('/', function(req, res) {
   res.render('landing');
 });
 
+// app.post('http://192.168.1.67:5000', function(req, res) {
+//   console.log('body: ' + JSON.stringify(req.body));
+//   res.send(req.body);
+// });
+
 // Create server
 // Create server that will listen specified port that we defined earlier.
 http.createServer(app).listen(app.get('port'), function() {

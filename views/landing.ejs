@@ -4,26 +4,76 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title></title>
-
+    <title>Watersports</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/css/bootstrap.min.css" integrity="sha384-y3tfxAZXuh4HwSYylfB+J125MxIs6mR5FOHamPBG064zB+AFeWH94NdvaCBm8qnd" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/stylesheets/main.css">
   </head>
   <body>
-    <div class="container col-lg-3">
-      <form action="192.168.1.67:9999/watersports" method="GET">
-          <div class="form-group">
-              <input class="form-control" type="date" name="dateFROM" placeholder="name">
+
+    <section class="jumbotron">
+      <div class="jumbotron-wrapper">
+          <div class="jumbotron-content col-sm-6">
+            <img src="/img/Logo.png" alt="" class="img-rounded center-block">
           </div>
-          <div class="form-group">
-              <input class="form-control" type="date" name="dateTO" placeholder="price" min="0.01" step="0.01">
+          <div class="jumbotron-content col-sm-4">
+              <h3>Watersports is an awesome </h3>
+              <h1>Find the stories you didn't know your wanted</h1>
           </div>
-          <div class="form-group">
-              <button class="btn btn-lg btn-primary btn-block">Submit!</button>
-          </div>
-      </form>
-    </div>
+      </div>
+    </section>
+
+    <section class="main-content padding-80">
+      <div class="container">
+        <form class="form" action="" method="post" role="form">
+            <input class="col-xs-6" type="date" name="dateFROM" class="form-control" placeholder="DATE FROM" required autofocus>
+            <input class="col-xs-6" type="date" name="dateTO" class="form-control" placeholder="DATE TO" required>
+            <div class=" col-xs-12 input-wrapper">
+              <input class="promo__input" type="text" name="topic" value="TRUMP" placeholder="Search for a topic">
+              <i class="icon-search fa fa-search" aria-hidden="true"></i>
+            </div>
+            <input type="text" name="skipNum" value="10">
+            <button class="btn btn-lg btn-primary btn-block" type="button">Submit</button>
+        </form>
+      </div>
+    </section>
+
+    <section class="news-results padding-80">
+      <div class="container">
+        <div class="result">
+
+        </div>
+
+      </div>
+    </section>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/js/bootstrap.min.js" integrity="sha384-vZ2WRJMwsjRMW/8U7i6PWi6AlO1L79snBrmgiDpgIWJ82z8eA5lenwvxbMV1PAh7" crossorigin="anonymous"></script>
+
+    <script>
+    $('button').click(function() {
+  var dateTO = $('#dateFROM').val();
+  var dateFROM = $('#dateTO').val();
+  var topic = $('#topic').val();
+  var skipNum = $('#skipNum').val();
+
+  $.ajax({
+    url: 'http://192.168.1.67:5000',
+    data: $('form').serialize(),
+    type: 'POST',
+    success: function(result) {
+      console.log(result);
+      var html = func(result);
+      $('.result').html(html);
+    },
+    error: function(error) {
+      console.log(error);
+    }
+  });
+});
+</script>
+
+
+
   </body>
 </html>

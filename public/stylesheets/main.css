@@ -1,0 +1,98 @@
+@import url('https://fonts.googleapis.com/css?family=Montserrat:200,300,400,500,700');
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+}
+
+body {
+  font-family: Montserrat;
+  font-size: 18px;
+  font-weight: 400;
+  color: #333;
+}
+
+.padding-80 {
+  padding: 80px;
+}
+
+/* ========================= */
+/* jumbotron */
+/* ========================= */
+.jumbotron {
+  background: url('../img/background.png') no-repeat;
+  background-position: 50% 50%;
+  background-size: cover;
+  height: 70vh;
+  position: relative;
+  width: 100%;
+  top: 0;
+  left: 0;
+  z-index: 0;
+  margin: 0;
+}
+
+.jumbotron-wrapper {
+  position: relative;
+  top: 0;
+  left: 0;
+  right: 0;
+  margin: 0 auto;
+  height: 100%;
+  color: #fff;
+  display: flex;
+  width: 100%;
+  align-items: center;
+  text-align: center;
+  z-index: 0;
+}
+
+.main-content {
+  width: 100%;
+  background-color: #ecf0f1;
+  color: #333;
+  position: relative;
+  text-align: center;
+}
+
+.main-content .container {
+  margin: auto;
+  padding: 0;
+  width: 100%;
+}
+
+.promo__input {
+  width: 100%;
+  border: 0;
+  padding: 16px 30px;
+  font-size: 17px;
+  border-radius: 4px;
+  margin: 30px 0;
+}
+
+.input-wrapper {
+  position: relative;
+  padding: 0;
+}
+
+.input-wrapper .icon-search {
+  position: absolute;
+  right: 50px;
+  top: 50px;
+}
+input[type='date'] {
+  border-radius: 4px;
+  border: 0;
+  padding: 16px 30px;
+  color: #333;
+}
+
+.news-results {
+  width: 100%;
+  background-color: #bdc3c7;
+  color: #333;
+  position: relative;
+  text-align: center;
+}
