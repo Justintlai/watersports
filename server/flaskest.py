@@ -3,7 +3,7 @@ from flask import Flask
 from flask import json
 from flask import request
 
-from newscraper import get_articles
+from newscraper import get_articles, get_articles_test
 
 app = Flask(__name__)
 flask_cors.CORS(app)
@@ -16,7 +16,7 @@ def index():
     skipNum = request.form['skipNum']
     print(skipNum)
 
-    data = get_articles(topic, skipNum)
+    data = get_articles_test(topic, skipNum)
     response = app.response_class(
         response=json.dumps(data),
         status=200,
@@ -26,4 +26,4 @@ def index():
 
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=5000, debug=True)
+    app.run(host='0.0.0.0', port=5000, debug=True, threaded=True)

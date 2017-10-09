@@ -7,6 +7,8 @@ from bs4 import BeautifulSoup
 from pws import Bing
 from pws.google import strip_tags
 
+word_file = "words.txt"
+WORDS = open(word_file).read().splitlines()
 
 def main():
     # c = gnp_fixed.get_google_news_query("earth")
@@ -28,8 +30,10 @@ def main():
             break
 
 
-def get_articles_testing(topic, start, end):
-    return [get_article_testing() for x in range(0, 100)]
+def get_articles_test(topic, skipNum):
+    r = [get_article_test(topic, skipNum) for x in range(0, 10)]
+    return sorted(r, key=getKey, reverse=True)
+
 
 
 def generate_news_url(query, num, start, recent, country_code):
@@ -77,7 +81,7 @@ def convert_to_epoch_time(param):
 
 
 def scrape_news_result(soup):
-    raw_results = soup.find_all('div', attrs={'class': 'g'})
+    raw_results = soup.find_all('div', {'class': 'g'})
     results = []
 
     for result in raw_results:
@@ -119,10 +123,62 @@ def scrape_news_result(soup):
     return results
 
 
+def scrape_news_result_bing(soup):
+    raw_results = soup.find_all('div', attrs={'class': 'newsitem'})
+    results = []
+
+    for result in raw_results:
+        link = result.find('a').get('href')
+
+        raw_link_text = result.find('a')
+        link_text = strip_tags(str(raw_link_text))
+
+        additional_links = dict()  # For consistancy
+
+        raw_link_info = result.find('span', attrs={'class': 'sn_snip'})
+        link_info = strip_tags(str(raw_link_info))
+
+        raw_source = result.find('cite', attrs={'class': 'sn_src'})
+        source = strip_tags(str(raw_source))
+
+        raw_time = result.find('span', attrs={'class': 'sn_tm'})
+        time = convert_to_epoch_time(strip_tags(str(raw_time)))
+
+        temp = {'link': link,
+                'link_text': link_text,
+                'link_info': link_info,
+                'additional_links': additional_links,
+                'source': source,
+                'time': time,
+                }
+        results.append(temp)
+    return results
+
+
+def generate_news_url_bing(query, first, recent, country_code):
+    """(str, str) -> str
+    A url in the required format is generated.
+    """
+    query = '+'.join(query.split())
+    url = 'http://www.bing.com/news/search?q=' + query + '&first' + first
+    if recent in ['h', 'd', 'w', 'm',
+                  'y']:  # A True/False would be enough. This is just to maintain consistancy with google.
+        url = url + '&qft=sortbydate%3d%221%22'
+    if country_code is not None:
+        url += '&cc=' + country_code
+    return url
+
+
 def search_news(query, num=10, start=0, recent=None, country_code=None):
+    # url = generate_news_url_bing(query, str(start), recent, country_code)
     url = generate_news_url(query, str(num), str(start), country_code, recent)
     soup = BeautifulSoup(requests.get(url).text, "html.parser")
+
+    if "Our systems have detected unusual traffic from your computer network." in str(soup):
+        pass
+
     results = scrape_news_result(soup)
+    # results = scrape_news_result_bing(soup)
 
     # raw_total_results = soup.find('div', attrs={'class': 'sd'}).string
     # total_results = int(str(raw_total_results).replace(",","").replace("About ","").replace(" results","").strip())
@@ -147,21 +203,24 @@ def get_articles(topic, skipNum):
 
 
 def get_random_date():
-    year = random.choice(range(1950, 2001))
+    year = random.choice(range(2001, 2017))
     month = random.choice(range(1, 13))
     day = random.choice(range(1, 29))
-    birth_date = datetime(year, month, day)
+    t = datetime(year, month, day)
+    birth_date = (t - datetime(1970, 1, 1)).total_seconds()
     return str(birth_date)
 
 
-def get_article_testing():
-    return {
-        "date": get_random_date(),
-        "summary": "something something something something something something something something ",
-        "title": "donnald trump is elected",
-        "source": "fake.news",
-        "isimage": "false"
-    }
+def get_article_test(topic, skipNum):
+    temp = {'link': str(skipNum),
+            'link_text': "".join([random.choice(WORDS) + " " for x in range(0, 10)]),
+            'link_info': "link_info",
+            'additional_links': "additional_links",
+            'source': str(topic),
+            'time': get_random_date(),
+            }
+
+    return temp
 
 
 if __name__ == "__main__":

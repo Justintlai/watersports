@@ -11,7 +11,7 @@ app.use(parser.urlencoded({ extended: true }));
 app.use(express.static(__dirname + '/public'));
 app.use(cors());
 app.set('view engine', 'ejs');
-app.set('port', process.env.PORT || 5000);
+app.set('port', process.env.PORT || 5001);
 
 // Set default route
 app.get('/', function(req, res) {
